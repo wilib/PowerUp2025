@@ -1,0 +1,38 @@
+server:
+  port: 8080
+spring:
+#  application:
+#    name: "crediYa-authentication"
+#  r2dbc:
+#    url: r2dbc:postgresql://localhost:5432/crediya_authentication
+#    username: postgres
+#    password: 123456
+#  sql:
+#    init:
+#      mode: always  # permite inicializar schema.sql o data.sql al inicio
+  devtools:
+    add-properties: false
+  h2:
+    console:
+      enabled: true
+      path: "/h2"
+  profiles:
+    active: dev
+adapters:
+  r2dbc:
+    host: ${ADAPTERS_R2DBC_HOST:localhost}
+    port: ${ADAPTERS_R2DBC_PORT:5432}
+    database: ${ADAPTERS_R2DBC_DATABASE:crediya_authentication}
+    username: ${ADAPTERS_R2DBC_USERNAME:postgres}
+    password: ${ADAPTERS_R2DBC_PASSWORD:123456}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+cors:
+  allowed-origins: "http://localhost:4200,http://localhost:8080"
