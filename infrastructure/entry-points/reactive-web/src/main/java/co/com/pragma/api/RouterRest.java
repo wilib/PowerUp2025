@@ -40,20 +40,6 @@ public class RouterRest {
                     )
             ),
             @RouterOperation(
-                    path = "/api/v1/usuarios/{id}",
-                    method = RequestMethod.GET,
-                    beanClass = Handler.class,
-                    beanMethod = "getById",
-                    operation = @Operation(
-                            operationId = "getUserById",
-                            summary = "Obtener usuario por id",
-                            responses = {
-                                    @ApiResponse(responseCode = "200", description = "Usuario encontrado"),
-                                    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
-                            }
-                    )
-            ),
-            @RouterOperation(
                     path = "/api/v1/usuarios",
                     method = RequestMethod.GET,
                     beanClass = Handler.class,
@@ -70,7 +56,6 @@ public class RouterRest {
     public RouterFunction<ServerResponse> routes(Handler handler) {
         return org.springframework.web.reactive.function.server.RouterFunctions
                 .route(POST("/api/v1/usuarios").and(accept(APPLICATION_JSON)), handler::save)
-                .andRoute(GET("/api/v1/usuarios/{id}").and(accept(APPLICATION_JSON)), handler::getById)
                 .andRoute(GET("/api/v1/usuarios").and(accept(APPLICATION_JSON)), handler::list);
     }
 }

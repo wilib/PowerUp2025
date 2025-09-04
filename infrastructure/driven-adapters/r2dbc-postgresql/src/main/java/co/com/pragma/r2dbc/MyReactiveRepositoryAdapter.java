@@ -6,6 +6,7 @@ import co.com.pragma.r2dbc.entity.UserEntity;
 import co.com.pragma.r2dbc.helper.ReactiveAdapterOperations;
 import co.com.pragma.r2dbc.mapper.UserEntityMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -50,6 +51,7 @@ public class MyReactiveRepositoryAdapter extends ReactiveAdapterOperations<
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Mono<User> save(User user) {
         UserEntity data = mapperEntity.toEntity(user);
         // Ensure the entity is treated as new so R2DBC performs INSERT, not UPDATE
